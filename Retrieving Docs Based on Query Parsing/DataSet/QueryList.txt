@@ -1,0 +1,7 @@
+mother AND invention 
+question AND suffer AND trouble 
+wise AND fool AND rich
+rich AND poor
+NOT pangrams AND NOT languages
+mass communication
+

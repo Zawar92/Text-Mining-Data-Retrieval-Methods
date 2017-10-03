@@ -1,0 +1,1 @@
+Embedded systems programming is the programming of an embedded system in some device using the permitted programming interfaces provided by that system. EmbeddedJava is an example of a development environment for programming embedded systems that will execute Java programs.

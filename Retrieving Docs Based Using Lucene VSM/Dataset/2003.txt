@@ -1,0 +1,26 @@
+One of the more popular forms of coding in recent times is the creation of applications, or apps, that run on mobile devices like phones and tablets. You probably use a range of different apps in your everyday life. Wouldn’t it be cool to create one of your own?
+
+There are many perks of being a developer in the booming app industry. Quite a few people make a good living developing and selling apps, and you have the opportunity to be one of them. You could even become the next Nick D’Aloisio, who famously sold his iPhone app, Summly, to Yahoo! for $30m.
+
+Plus, it’s the best way to get your work into people’s pockets!
+App Development Overview
+
+Mobile apps are developed for a certain platform, and the two most popular platforms today are iOS and Android.
+
+The iOS platform powers apps built for iPhone and iPad. To develop an app for iPhone or iPad, you need to use the Objective-C coding language and the Cocoa framework. You also need to use an IDE (integrated development environment) called Xcode. Note that Xcode only runs on the Mac, so you will need a Mac to make an iOS app.
+
+Android apps are developed with the Java coding language and the Android Software Development Kit, which runs on Mac, PC or Linux. You also need to use an IDE such as Eclipse.
+
+There are other mobile platforms such as Windows Phone, but iOS and Android are definitely the most popular. Most training focuses on these platforms.
+Ways to Learn App Development
+
+If you want to develop iPhone and iPad apps, one place where you can learn is the iOS Dev Center. This is a free online resource provided by Apple, which contains starter guides, tutorials, videos and documentation.
+
+For Android app development, the equivalent resource is the Android Developers Training. This training is a series of articles that walks you through how to make your first app, starting with the basics.
+
+In addition to these official resources, you may also want to try other training. You may find that books and online training are more digestible and understandable.
+Online Training
+
+Aside from the official resources, there is plenty of unofficial app development training on the Internet. A particular recommendation is Treehouse. Although Treehouse’s main focus is web development and design, app development is a close second.
+
+Wait. If you are totally new to coding, mobile app development may not be the best place to start. It’s better to start by learning web coding, which is much more beginner-friendly. Then, when you do graduate to app development, you’ll have a solid understanding of coding basics.

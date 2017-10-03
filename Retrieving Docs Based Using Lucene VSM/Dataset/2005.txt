@@ -1,0 +1,15 @@
+What is the best programming language for mobile apps?
+
+It depends onrequirements for your application. For example:
+
+- If as better as possible performance is needed,than a low level language like,Assembler, C or C++, has to be used
+
+- If as better as possible UI is needed,than a high level language, like Java, C# orVisual Basic, has to be used
+
+It is recommended thata prototype of the application and its UIis designed with a high level language.
+
+Also, it is not just a question of some programming language. It is a combination of many-many factors and
+one of them is a right set of helperlibraries. An UI library, like QT, could significantly speed up the
+development process.
+
+In overall, your application could use any set of different languages and helper libraries.

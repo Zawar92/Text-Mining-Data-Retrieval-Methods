@@ -1,0 +1,18 @@
+This list isn’t intended to be complete, just informative
+The nature of data and computation
+What a computer can do — and can do efficiently
+The organization and components of a computer system
+How data is encoded and decoded
+Digital Logic
+The C Programming Language (and others like it)
+Assembly and Machine Languages
+Basic operating system functionality (file, process, and memory management)
+Interfacing with the O.S.
+Compiling, assembling, linking, loading
+Exploiting systems
+Defending systems from attack
+File formats
+Advanced operating system functionality (virtual memory, interrupts, bootstrapping)
+Device Drivers
+Concurrency basics: threads and events   
+Networking basics 

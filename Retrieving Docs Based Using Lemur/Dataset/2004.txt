@@ -1,0 +1,13 @@
+Mobile developers across the globe have developed and released more than 650,000 iPhone apps, 400,000 iPad apps, and 600,000 apps for Android. Are you thinking about building an app? A key step in the process is choosing the right programming language, which depends on how scrappy you're willing to be.
+
+Make sure you've researched cross-platform app design and reviewed the common pitfalls of developing your app. Decide on your audience and what platform you'll use, and then weigh your options to select a language.
+
+What languages have you used to build your app, and why did you choose that one? Let us know in the comments.
+
+Objective-C is the iOS standard, considerd the "correct" language, according to Stephen Kaliski, who works for NYC-based start-up Poptip. The iPhone — and all iOS programming for that matter — is written in Objective-C through Apple's Xcode integrated development environment (IDE).
+
+Advantages of using the iOS standard of Objective-C are the following: It's high performance, so you get to make use of the phone's actual functions, such as the camera. Plus, there's a larger developer community that new app developers can reach out to for help. Additionally, coding your iPhone app in Objective-C allows the app to match the 'feel' of all iOS supported devices. "You can write universal apps which operate on both iPhone and iPad," says Kaliski.
+
+However, there are some difficulties with Objective-C programming. For one, the language is not necessarily easy to learn. Furthermore, some elements of Xcode are much different than your typical development process. Finally, Objective-C does not allow the app to be scaled to other platforms, such as Android phones or Windows phones.
+
+On the scrappier side, iPhone apps can be written as web apps. A web app doesn't require as sophisticated a language as Objective-C — they're usually written in HTML, CSS or JavaScript. Plus, web apps can use certain functions of the iPhone; with HTML5, you can develop web apps for iPhones with location or rotation features. Still, web apps are limited. Developers building web apps won't be able to integrate core functionalities of the device, such as sending text messages, nor will developers be able to take advantage of App Store features, like app payments and updates.

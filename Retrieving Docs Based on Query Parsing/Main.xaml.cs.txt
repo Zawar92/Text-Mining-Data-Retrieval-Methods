@@ -1,0 +1,295 @@
+using FirstFloor.ModernUI.Windows.Controls;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Information_Retrieval
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : ModernWindow
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            posting();
+        }
+        public string[,] temp = new string[10, 20];
+        public string[,] tempor = new string[10, 20];
+        private void posting()
+        {
+            StreamReader reader1 = new StreamReader(@"<path to file>\D1.txt");
+            StreamReader reader2 = new StreamReader(@"<path to file>\D2.txt");
+            StreamReader reader3 = new StreamReader(@"<path to file>\D3.txt");
+            StreamReader reader4 = new StreamReader(@"<path to file>\D4.txt");
+            StreamReader reader5 = new StreamReader(@"<path to file>\D5.txt");
+            StreamReader reader6 = new StreamReader(@"<path to file>\D6.txt");
+            StreamReader reader7 = new StreamReader(@"<path to file>\D7.txt");
+            StreamReader reader8 = new StreamReader(@"<path to file>\D8.txt");
+            StreamReader reader9 = new StreamReader(@"<path to file>\D9.txt");
+            StreamReader reader10 = new StreamReader(@"<path to file>\D10.txt");
+            StreamReader stop = new StreamReader(@"<path to file>\Stopword-List.txt");
+
+                try
+                {
+                    string[] line1 = reader1.ReadToEnd().Split(' ', ',', '-');
+                    string[] line2 = reader2.ReadToEnd().Split(' ', ',', '-');
+                    string[] line3 = reader3.ReadToEnd().Split(' ', ',', '-');
+                    string[] line4 = reader4.ReadToEnd().Split(' ', ',', '-');
+                    string[] line5 = reader5.ReadToEnd().Split(' ', ',', '-');
+                    string[] line6 = reader6.ReadToEnd().Split(' ', ',', '-');
+                    string[] line7 = reader7.ReadToEnd().Split(' ', ',', '-');
+                    string[] line8 = reader8.ReadToEnd().Split(' ', ',', '-');
+                    string[] line9 = reader9.ReadToEnd().Split(' ', ',', '-');
+                    string[] line10 = reader10.ReadToEnd().Split(' ', ',', '-');
+                    string[] stop1 = stop.ReadToEnd().Split('\n');
+                    string[][] line= new string[][] {line1, line2, line3, line4, line5, line6, line7, line8, line9, line10 };
+                    string sam;
+                    int first=0; int second=0,length=0;
+                    length =  line1.Length + line2.Length + line3.Length + line4.Length + line5.Length + line6.Length + line7.Length + line8.Length + line9.Length + line10.Length;
+                    string[,] Myarray = new string[length, 20];
+                    
+                    temp = new string[length, 20];
+                    tempor = new string[length, 20];
+                    for(int i=0;i<=9;i++){
+                        foreach (string mydata in line[i])
+                    {
+                        Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+                        sam = mydata;
+                        sam = rgx.Replace(sam, "");
+                        sam = sam.ToLower();
+                            for (int j = 0; j < stop1.Length; j++)
+                            {
+                            if (stop1[j].Contains(sam))
+                            {sam = null;
+                            break;
+                            }
+                        }
+                        if (sam != null)
+                        {
+       Myarray[first, second] = sam;
+                            second=second+1;
+                            Myarray[first,second] = (i+1).ToString();
+                            second = 0;
+                            first = first + 1 ;
+                        }}}
+
+                    Array.Copy(Myarray, tempor, temp.Length);
+
+                    string[] temp1 = new string[0];
+                    string[] temp2 = new string[0];
+                    for (int i = 0; Myarray[i, 0] != null; i++)
+                    {
+                        Array.Resize(ref temp1, temp1.Length + 1);
+                        Array.Resize(ref temp2, temp2.Length + 1);
+                        temp1[i] = Myarray[i, 0];
+                        temp2[i] = Myarray[i, 1];
+                    }
+                    Array.Sort(temp1, temp2);
+                    for (int i = 0; temp1[i] != null; i++)
+                    {
+                        Array.Resize(ref temp1, temp1.Length + 1);
+                        Array.Resize(ref temp2, temp2.Length + 1);
+                        Myarray[i, 0] = temp1[i];
+                        Myarray[i, 1] = temp2[i];
+                    }
+                        second = 0; int third = 0;
+                    int count=2;
+                    for (int i = 0; i < first; i++)
+                    {
+                        for (int j = i+1; j < first; j++)
+                        {
+                            if (Myarray[i, 0].Length > 1)
+                            {
+                                if (Myarray[i, 0] != null && j == i + 1)
+                                {
+                                    temp[second, 0] = Myarray[i, 0]; temp[second, 1] = Myarray[i, 1]; third++;
+                                }
+                                if (temp[second, 0].Equals(Myarray[j, 0]))
+                                {
+                                    if (temp[second, count - 1] != Myarray[j, 1])
+                                    {
+                                        temp[second, count] = Myarray[j, 1];
+                                        Myarray[j, 0] = String.Empty;
+                                        Myarray[j, 1] = String.Empty;
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        Myarray[j, 0] = String.Empty;
+                                        Myarray[j, 1] = String.Empty;
+                                    }
+                                }
+                            }
+                            else
+                            {}
+                        }
+                        if (third == 1)
+                        { second++; third = 0; }
+                        count = 2;}
+                    for (int i = 0; temp[i, 0] != null; i++)
+                    {for (int j = 0; temp[i,j] != null; j++)
+                        {result.AppendText(temp[i, j]);
+                            result.AppendText("\t");}
+                        result.AppendText("\n");}
+                }
+                    
+                catch (Exception ex)
+                { Console.WriteLine("Error: " + ex.Message); }
+            }
+
+        private void search(object sender, RoutedEventArgs e)
+        {
+            string[] searchstring = searchbar.Text.Split(' ');
+            string[] note = new string[3];
+            string[] docs = new string[0];
+            int index = 0;
+            int[] point = new int[0];
+            if (searchstring[0] != "")
+            {
+                resultbar.Text = "";
+                if(searchstring[1]=="AND" || searchstring[1]=="and")
+                {
+                    for (int i = 0; i<searchstring.Length; i=i+2)
+                    {for (int j = 0; temp[j,0]!=null; j++)
+                        {if (searchstring[i] == temp[j, 0])
+                        { note[index] = j.ToString() ; index++; }
+                        }
+                    }
+                    index = 0;
+                    for (int i = 0; i<note.Length; i++)
+                    {
+                        Array.Resize(ref point, point.Length + 1);
+                        point[i] = Convert.ToInt16(note[i]);
+                    }
+                    for (int i = 0; i<1; i++)
+                    {
+                        Array.Resize(ref note, note.Length + 1);
+                        
+                        for (int j = 1; temp[point[i],j] != null; j++)
+                        {
+                            for (int k = 1; temp[point[i], k] != null; k++)
+                            {
+                                if (temp[point[i], j] == temp[point[i+1], k])
+                                {
+                                    if (point[i+2]!=0)
+                                    {
+                                        for (int m = 0; temp[point[i], m] != null; m++)
+                                        {
+                                            if (temp[point[i], j] == temp[point[i + 2], m])
+                                            {
+                                                Array.Resize(ref docs, docs.Length + 1);
+                                                docs[index] = temp[point[i], j]; index++;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Array.Resize(ref docs, docs.Length + 1);
+                                        docs[index] = temp[point[i], j]; index++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (int i = 0; i < docs.Length; i++)
+                    {
+                        resultbar.AppendText (docs[i]);
+                        resultbar.AppendText(",");
+                    }}
+                else if (searchstring[0] == "NOT" || searchstring[0] == "not")
+                {
+                    int[] intersect = new int[0];
+                    string[] sample = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+                    for (int i = 1; i < searchstring.Length; i = i + 3)
+                    {
+                        for (int j = 0; temp[j, 0] != null; j++)
+                        {
+                            if (searchstring[i] == temp[j, 0])
+                            { note[index] = j.ToString(); index++; }
+                        }
+                    }
+
+                    index = 0;
+                    for (int i = 0; note[i] != null; i++)
+                    {
+                        Array.Resize(ref point, point.Length + 1);
+                        point[i] = Convert.ToInt16(note[i]);
+                    }
+
+                    for (int i = 0; i < point.Length; i++)
+                    {
+                        for (int j = 1; temp[point[i], j] != null; j++)
+                        {
+                            Array.Resize(ref intersect, intersect.Length + 1);
+                            intersect[index] = Convert.ToInt16(temp[point[i], j]); index++;
+                        }
+                    }
+                    index = 0;
+                    for (int i = 0; i < intersect.Length; i++)
+                    {
+                        for (int j = 0; j < 10; j++)
+                        {
+                            if (sample[j].Length > 0)
+                            {
+                                if (intersect[i] == Convert.ToInt16(sample[j]))
+                                { sample[j] = String.Empty; break; }
+                            }
+                        }
+                    }
+                    for (int i = 0; i < sample.Length; i++)
+                    {
+                        if (sample[i].Length > 0)
+                        {
+                            resultbar.AppendText(sample[i]);
+                            resultbar.AppendText(",");
+                        }
+                    }
+                }
+
+                else {
+                    index=0;
+                    for (int i = 0; i < searchstring.Length; i++)
+                    {
+                        for (int j = 0; tempor[j,0]!=null; j++)
+                        {
+                            if (i+1<searchstring.Length )
+                            {
+                                if (searchstring[i] == tempor[j, 0] && searchstring[i + 1] == tempor[j + 1, 0])
+                                {
+                                    note[index] = tempor[j, 1];
+                                }
+                            }
+                        }
+                    }
+
+                    for (int i = 0; note[i]!=null; i++)
+                    {
+                        resultbar.AppendText(note[i]);
+                        resultbar.AppendText(",");
+                    }
+                }
+
+            }
+            else
+            {
+                label.Content = "Information Is Reuired ";
+            }
+        }
+    }
+}

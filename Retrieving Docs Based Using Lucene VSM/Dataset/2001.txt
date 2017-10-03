@@ -1,0 +1,10 @@
+A Comprehensive Program for Android Developers
+This course is a part of the Mobile Cloud Computing with Android Specialization, a comprehensive program in which you will learn to create create complex, cloud-based Android applications, applying what you've learned through hands-on activities and a final project designed with industry partners.
+
+"This is an excellent resource for any developer wishing to enter the growing mobile app industry. We’ve seen lots of great apps come out of this program."
+    - Ankur Prasad, Amazon Appstore team
+
+"The professors provided high-quality course materials and the forums and my fellow students were extremely helpful. To top it all off, being able to participate in the Capstone project and then voted into the top 30 apps was an absolutely amazing experience.  I have now achieved my goal of working as a professional Android developer primarily due to the skills I obtained in this specialization."
+    - Daun Davids, program graduate
+
+Join our growing community of over 600,000 learners and get started with Android app development today!

@@ -1,0 +1,160 @@
+using System;                                              
+using System.Collections.Generic;                         
+using System.ComponentModel;                              
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Lucene.Net.Index;
+using Lucene.Net.Search;
+using Lucene.Net.Store;
+using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Documents;
+using System.Diagnostics;
+
+namespace LuceneVSM
+{
+    
+    public partial class Form1 : Form
+    {
+        //                       VARIABLES
+            public int  rank_1 { set; get; }
+            public int docId_1 { set; get; }
+            public float score_1 { set; get; }
+            public string content_1 { set; get; }
+
+            private string Search = String.Empty;
+
+            public string Search1
+            {
+                get { return Search; }
+                set { Search = value; }
+            }
+
+
+            DataTable dt = new DataTable();
+            
+        //                   CONSTRUCTOR
+        public Form1()
+        {
+            InitializeComponent();
+            rank_1 = 0;
+            
+
+            IndexingEnvoirment();
+           
+            DataColumn DC1;
+            DC1 = new DataColumn("Rank");
+            dt.Columns.Add(DC1);
+
+            DataColumn DC2;
+            DC2 = new DataColumn("Document Id");
+            dt.Columns.Add(DC2);
+
+            DataColumn DC3;
+            DC3 = new DataColumn("Score");
+            dt.Columns.Add(DC3);
+
+            DataColumn DC4;
+            DC4 = new DataColumn("Content");
+            dt.Columns.Add(DC4);
+
+            dataGridView1.DataSource = dt;
+            
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //search();
+            
+            
+        }
+
+        private void textBox1_TextChanged(object sender, System.EventArgs e)
+        {
+            
+
+        }
+////////////////////////////////////////////////////////////////////////////////////////////////
+        //take input and update datagrid with button click.
+
+        private void searchData(object sender, System.EventArgs e)
+        {
+            
+            Search1 = textBox1.Text;
+            QueryEnvoirment();
+            
+            //dataGridView1.ColumnCount = 4;
+            int RowIndex = dataGridView1.RowCount - 1;
+            DataGridViewRow row = dataGridView1.Rows[RowIndex];
+            row.Cells["Rank"].Value = rank_1;
+            row.Cells["Document Id"].Value = docId_1;
+            row.Cells["Score"].Value = score_1;
+            row.Cells["Content"].Value = content_1;
+        }
+
+        //                     CEATING INDEX & REMOVING STOPWORDS & READING DATA FROM FILES 
+        public void IndexingEnvoirment()
+        {
+            string indexFileLocation = @"<Path To Index>\Index";
+            Lucene.Net.Store.Directory Readingdir = Lucene.Net.Store.FSDirectory.Open(new System.IO.DirectoryInfo(indexFileLocation));
+            string StopwordPath = @"<Path To Stopwords docs>\StopWordsList.txt";
+            System.IO.FileInfo stop = new System.IO.FileInfo(StopwordPath);
+            Analyzer analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30, stop);
+
+            IndexWriter indexWriter = new IndexWriter(Readingdir, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
+            foreach (string fi in System.IO.Directory.GetFiles(@"<Path To Dataset Folder>\Dataset"))
+            {
+                Lucene.Net.Documents.Document doc = new Lucene.Net.Documents.Document();
+                Lucene.Net.Documents.Field fldContent = new Lucene.Net.Documents.Field("contents", System.IO.File.ReadAllText(fi), Lucene.Net.Documents.Field.Store.YES, Lucene.Net.Documents.Field.Index.ANALYZED, Lucene.Net.Documents.Field.TermVector.YES);
+                doc.Add(fldContent);
+                indexWriter.AddDocument(doc);
+
+            }
+
+            indexWriter.Optimize();
+            indexWriter.Commit();
+            indexWriter.Dispose();
+        }
+
+        //                               RETRIEVING DATA THROUGH QUERIES
+        public void QueryEnvoirment()
+        {
+            //dataGridView1.Columns.Clear();
+            string indexFileLocation = @"C:\Index";
+            Lucene.Net.Store.Directory dir = Lucene.Net.Store.FSDirectory.Open(new System.IO.DirectoryInfo(indexFileLocation));
+            Lucene.Net.Search.Searcher searcher = new Lucene.Net.Search.IndexSearcher(Lucene.Net.Index.IndexReader.Open(dir, true));
+            
+            Analyzer std = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            Lucene.Net.QueryParsers.QueryParser parser = new Lucene.Net.QueryParsers.QueryParser(Lucene.Net.Util.Version.LUCENE_30, "contents", std);
+            Lucene.Net.Search.Query query = parser.Parse(Search1);
+            
+            TopDocs topDocs = searcher.Search(query, 5);
+            int Counter = topDocs.ScoreDocs.Length;
+        
+            for (int i = 0; i < Counter; i++)
+            {
+                rank_1++;
+                ScoreDoc scoreDoc = topDocs.ScoreDocs[i];
+                score_1 = scoreDoc.Score;
+                docId_1 = scoreDoc.Doc;
+                Document doc = searcher.Doc(docId_1);
+                Lucene.Net.Documents.Document Doc = searcher.Doc(docId_1);
+               content_1 = doc.Get("contents");
+                dt.Rows.Add(rank_1,docId_1,score_1,content_1);
+                
+            }
+            searcher.Dispose();
+            dir.Dispose();
+        }
+
+        private void Form1_Load(object sender, System.EventArgs e)
+        {
+            
+            
+        }
+    }
+}
